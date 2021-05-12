@@ -6,6 +6,8 @@
 package Cimara_Compito;
 
 import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,15 +17,15 @@ public class Dipendente extends Thread{
     Semaphore vuoto = new Semaphore(1);
     Semaphore pieno = new Semaphore(0);
     
-    private int consumi = 0;
+    private int consumi;
     
-    protected Bancone n = new Bancone();
+    private final Cuoco m = new Cuoco();
+ 
       
     public void ammetti() throws InterruptedException{
         consumi++;
-        
+        m.aggiungiPiatto();
         vuoto.acquire();
-        n.rimuoviPiatto();
         System.out.println("Consumi: " + consumi);
         pieno.release();
     }
@@ -32,6 +34,16 @@ public class Dipendente extends Thread{
         pieno.acquire();
         System.out.println();
         vuoto.release();
+    }
+    
+    @Override
+    public void run()
+    {
+        try {
+            ammetti();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Dipendente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

@@ -6,7 +6,6 @@
 package Cimara_Compito;
 
 import java.util.concurrent.Semaphore;
-import java.util.Random;
 
 /**
  *
@@ -17,9 +16,8 @@ public class Cuoco extends Thread{
     Semaphore vuoto = new Semaphore(0);
     Semaphore pieno = new Semaphore(1);
     private int piatto = 0;
-    private Dipendente a = new Dipendente();
     
-    private Bancone n = new Bancone();
+    private final Bancone n = new Bancone();
     
     public void aggiungiPiatto()
     {
@@ -32,7 +30,6 @@ public class Cuoco extends Thread{
             
             sleep((int) (Math.random() * 30));
             
-            a.ammetti();
             
         } catch (InterruptedException ex) {
         }
@@ -47,11 +44,5 @@ public class Cuoco extends Thread{
         } catch (InterruptedException ex) {
         }
         vuoto.release();
-    }
-    
-    @Override
-    public void run()
-    {
-        aggiungiPiatto();
     }
 }

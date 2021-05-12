@@ -17,16 +17,21 @@ public class Mensa_Aziendale {
     public static void main(String[] args) throws InterruptedException {
         // TODO code application logic here
         
-        Cuoco n = new Cuoco();
+        
         
         System.out.println("Mensa aperta.");
         
         for(int i = 0; i < 10; i++)
         {
-            n.start();
+            Dipendente a = new Dipendente();
+            a.start();
         }
-                
-        System.out.println("Mensa chiusa");
+        
+        for(int i = 0; i < 10; i++)
+        {
+            Dipendente a = new Dipendente();
+            a.join();
+        }
     }
     
 }
